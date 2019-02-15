@@ -18,20 +18,21 @@ if (isset($_POST['submit'])){
             ."VALUES (:nom, :prenom, :email, :mdp, :sid);";
     //Requête d'ajout d'un utilisateur
     $sth = $bdd-> prepare($sql_insert);
-    
+    //Preparation de la base    
     $sth->bindvalue(':nom', $_POST['nom'], PDO::PARAM_STR);
     $sth->bindvalue(':prenom', $_POST['prenom'], PDO::PARAM_STR);
     $sth->bindvalue(':email', $_POST['email'], PDO::PARAM_STR);
     $sth->bindvalue(':mdp', cryptPassword ($_POST['mdp']), PDO::PARAM_STR);
     $sth->bindvalue(':sid', $sid, PDO::PARAM_STR);
-    
+    //Association des valeurs
     $result = $sth->execute();
-    
+    //Execution de la requête
     var_dump($result);
     
     $id_utilisateur = $bdd->lastInsertId();
     
     $notification = '<b>Félicitation</b> votre utilisateur a bien été créé.';
+    //Notification confirmant la bonne création de l'utilisateur
     $result_notification = TRUE;
     
     $_SESSION['notification']['message'] = $notification;
@@ -52,9 +53,8 @@ include_once 'include/header.inc.php';
 include_once 'include/nav.inc.php';
 
 $smarty->display('utilisateur.tpl');
+//Affichage du template utilisateur.tpl et insertion du header, de la barre de navigation et du footer
 include_once 'include/footer.inc.php';
-
-
 }
 
 ?>

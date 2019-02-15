@@ -15,20 +15,21 @@ if (isset($_POST['submit'])){
     
     $publie = isset($_POST['publie']) ? $_POST['publie']:0;
     $date = date("Y-m-d");
+    //Recuperation de la date
     
     $sql_insert = "INSERT INTO bootstrap"
             ."(titre, texte, publie, date)"
             ."VALUES (:titre, :texte, :publie, :date);";
     //Requête pour ajouter un article
     $sth = $bdd-> prepare($sql_insert);
-    
+    //Preparation de la base
     $sth->bindvalue(':titre', $_POST['titre'], PDO::PARAM_STR);
     $sth->bindvalue(':texte', $_POST['texte'], PDO::PARAM_STR);
     $sth->bindvalue(':publie', $publie, PDO::PARAM_BOOL);
     $sth->bindvalue(':date', $date, PDO::PARAM_STR);
-    
+    //Association des valeurs
     $result = $sth->execute();
-    
+    //Execution de la requête
     
     $id_article = $bdd->lastInsertId();
     
@@ -40,6 +41,7 @@ if (isset($_POST['submit'])){
     }
     
     $notification = '<b>Félicitation</b> votre article a été inséré dans la base de données.';
+    //Notification confirmant la bonne insertion de l'article dans la bdd
     $result_notification = TRUE;
     
     $_SESSION['notification']['message'] = $notification;
@@ -58,15 +60,9 @@ include_once 'include/header.inc.php';
 include_once 'include/nav.inc.php';
 
 $smarty->display('articles.tpl');
+//Affichage du template articles.tpl et insertion du header, de la barre de navigation et du footer
 
 include_once 'include/footer.inc.php';
-
-
-
-
-
-  
-
 
 }
 include_once 'include/footer.inc.php';

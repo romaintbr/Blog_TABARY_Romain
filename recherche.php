@@ -18,6 +18,7 @@ try{
    $bdd->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
    //Activation des erreurs de PDO
 } catch (Exception $e){
+  //Affichage message d'erreur
   echo "Erreur : ".$e->getMessage();
 }
 
@@ -36,6 +37,8 @@ if($search){
                    . "OR texte like :texte)";
 //Requête de recherche
  $sth = $bdd->prepare($sql); 
+ //Preparation de la base
+ //Execution de la requête
  $sth->execute(array(
         "recherche"=> $_GET['search'],
 		"publie"=> $publie,
@@ -59,6 +62,7 @@ include_once 'include/header.inc.php';
 include_once 'include/nav.inc.php';
 
 $smarty->display('recherche.tpl');
+//Affichage du template recherche.tpl et insertion du header, de la barre de navigation et du footer
 
 include_once 'include/footer.inc.php';
 

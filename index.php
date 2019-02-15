@@ -10,6 +10,7 @@ require_once 'include/fonction.inc.php';
 
 if (isset($_SESSION['notification'])){
     $color_notification = $_SESSION['notification']['result'] == TRUE ? 'succes' : 'danger';
+    //Notification de connexion
 }
 
 $page_courante = !empty($_GET['page']) ? $_GET['page'] : 1;
@@ -49,19 +50,21 @@ $nb_pages = ceil($nb_total_article_publie / _nb_art_par_page);
                   ."FROM bootstrap "
                   ."WHERE publie = :publie "
                   ."LIMIT :index_depart, :nb_limit ";
+          //Requête article
           /*@var $bdd PDO*/
           $sth = $bdd->prepare($sql_select);
-          
+          //Preparation de la base
           $sth->bindValue(':publie', 1, PDO::PARAM_BOOL);
           $sth->bindValue(':index_depart', $index_depart_MySQL, PDO::PARAM_INT);
           $sth->bindValue(':nb_limit', _nb_art_par_page, PDO::PARAM_INT);
-          
+          //Association des valeurs
           $sth->execute();
+          //Execution de la requête
           $tab_bootstrap = $sth->fetchAll(PDO::FETCH_ASSOC);
           
 
 $publie = 1;
-//Recherche dans une chaîne de caractère
+//Recherche dans une chaîne de caractère (% chaine de caractère %)
 $texte = !empty($_GET['search']) ? "%".$_GET['search']."%" : NULL;
 
 if($search){
@@ -73,6 +76,8 @@ if($search){
                    . "OR texte like :texte";
   //Requête de recherche
  $sth = $bdd->prepare($sql); 
+ //Preparation de la base
+ //Execution de la requête
  $sth->execute(array(
         "recherche"=> $_GET['search'],
 		"publie"=> $publie,

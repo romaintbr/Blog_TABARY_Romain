@@ -3,7 +3,7 @@
 function cryptPassword($mdp){
     $mdp_crypt = sha1($mdp);
     return $mdp_crypt;
-    //fonction de cryptage pour le mot de passe
+    //Fonction de cryptage pour le mot de passe
 }
 
 function sid($email){
@@ -14,7 +14,7 @@ function sid($email){
 function indexPagination($page_courante, $nb_articles_par_page){
     $index = ($page_courante -1) * $nb_articles_par_page;
     return $index;
-    //fonction pour la pagination
+    //Fonction pour la pagination
 }
 
 function nb_total_article_publie($bdd){
@@ -27,5 +27,5 @@ function nb_total_article_publie($bdd){
     $tab_result = $sth->fetch(PDO::FETCH_ASSOC);
     
     return $tab_result['nb_total_article_publie'];
-    //fonction pour le nombre total d'articles publiés
+    //Fonction pour le nombre total d'articles publiés
 }
